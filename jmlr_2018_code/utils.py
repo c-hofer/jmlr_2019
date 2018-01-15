@@ -28,6 +28,7 @@ def bar_code_slayer_collate_fn(sample_target_iter, cuda=False):
     x = collection_cascade(x, stop_predicate=lambda x: isinstance(x, list),
                            function_to_apply=lambda x: SLayer.prepare_batch(x, 2))
 
+    y = torch.LongTensor(y)
     if cuda:
         # Shifting the necessary parts of the prepared batch to the cuda
         x = {k: collection_cascade(v,
@@ -35,5 +36,6 @@ def bar_code_slayer_collate_fn(sample_target_iter, cuda=False):
                                    lambda x: (x[0].cuda(), x[1].cuda(), x[2], x[3]))
              for k, v in x.items()}
 
-    y = torch.LongTensor(y)
+        y = y.cuda()
+
     return x, y
