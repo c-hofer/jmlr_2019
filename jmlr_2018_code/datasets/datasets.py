@@ -27,8 +27,9 @@ class DataSetBase:
     google_drive_provider_id = None
     provider_file_name = None
 
-    def __init__(self, root_dir: str, download=True):
+    def __init__(self, root_dir: str, download=True, transforms=[]):
         self.root_dir = pth.normpath(root_dir)
+        self.transforms = transforms
         self._provider = None
 
         provider_exists = pth.isfile(self._provider_file_path)
@@ -46,6 +47,7 @@ class DataSetBase:
 
         provider_exists = pth.isfile(self._provider_file_path)
         if provider_exists:
+            print('Found data!')
             self._provider = Provider()
             self._provider.read_from_h5(self._provider_file_path)
 
@@ -59,6 +61,10 @@ class DataSetBase:
 
     def __getitem__(self, item):
         x, y = self._provider[item]
+
+        for t in self.transforms:
+            x = t(x)
+
         y = int(y)
         return x, y
 
