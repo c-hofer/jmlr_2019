@@ -18,6 +18,8 @@ import os.path as pth
 from .data_downloader import download_file_from_google_drive
 from .provider import Provider
 
+from sklearn.preprocessing import LabelEncoder
+
 
 class DataSetException(Exception):
     pass
@@ -27,10 +29,11 @@ class DataSetBase:
     google_drive_provider_id = None
     provider_file_name = None
 
-    def __init__(self, root_dir: str, download=True, transforms=[]):
+    def __init__(self, root_dir: str, download=True, sample_transforms=[]):
         self.root_dir = pth.normpath(root_dir)
-        self.transforms = transforms
+        self.sample_transforms = sample_transforms
         self._provider = None
+        self.integer_labels = True
 
         provider_exists = pth.isfile(self._provider_file_path)
 
@@ -54,6 +57,7 @@ class DataSetBase:
         else:
             raise DataSetException("Cannot find data in {}.".format(self.root_dir))
 
+        self.str_2_int_label = {str_label: int_label for int_label, str_label in enumerate(self._provider.labels)}
 
     @property
     def _provider_file_path(self):
@@ -62,10 +66,12 @@ class DataSetBase:
     def __getitem__(self, item):
         x, y = self._provider[item]
 
-        for t in self.transforms:
+        for t in self.sample_transforms:
             x = t(x)
 
-        y = int(y)
+        if self.integer_labels:
+            y = self.str_2_int_label[y]
+
         return x, y
 
     def __len__(self):
@@ -73,7 +79,7 @@ class DataSetBase:
 
     @property
     def labels(self):
-        return self._provider.labels
+        return [self[i][1] for i in range(len(self))]
 
 
 class Animal(DataSetBase):
