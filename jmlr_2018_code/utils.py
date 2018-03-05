@@ -49,7 +49,7 @@ def get_train_test_sampler(dataset, train_size, stratified=False):
     
     splitter_type = ShuffleSplit if not stratified else StratifiedShuffleSplit
         
-    splitter = splitter_type(n_splits=1, train_size=train_size, test_size=1-train_size)
+    splitter = splitter_type(n_splits=1, train_size=train_size, test_size=1-train_size, random_state=666)
     split = list(splitter.split(X=dataset.labels, y=dataset.labels))[0]
     split = [x.tolist() for x in split]
     
