@@ -49,7 +49,7 @@ def get_train_test_sampler(dataset, train_size, stratified=False):
     
     splitter_type = ShuffleSplit if not stratified else StratifiedShuffleSplit
         
-    splitter = splitter_type(n_splits=1, train_size=train_size, test_size=1-train_size, random_state=666)
+    splitter = splitter_type(n_splits=1, train_size=train_size, test_size=1-train_size, random_state=1234)
     split = list(splitter.split(X=dataset.labels, y=dataset.labels))[0]
     split = [x.tolist() for x in split]
     
@@ -68,7 +68,7 @@ def k_means_center_init(sample_target_iter: dict, n_centers: int):
     for k, v in samples_by_view.items():
         points_by_view[k] = torch.cat(v, dim=0).numpy()
     
-    k_means = {k: sklearn.cluster.KMeans(n_clusters=n_centers, init='k-means++', n_init=10)
+    k_means = {k: sklearn.cluster.KMeans(n_clusters=n_centers, init='k-means++', n_init=10, random_state=1234)
                for k in points_by_view.keys()}
     
     center_inits_by_view = {}
