@@ -68,7 +68,7 @@ def k_means_center_init(sample_target_iter: dict, n_centers: int):
     for k, v in samples_by_view.items():
         points_by_view[k] = torch.cat(v, dim=0).numpy()
     
-    k_means = {k: sklearn.cluster.KMeans(n_clusters=n_centers, init='k-means++', n_init=10, random_state=1234)
+    k_means = {k: sklearn.cluster.KMeans(n_clusters=n_centers, init='k-means++', n_init=10, random_state=123)
                for k in points_by_view.keys()}
     
     center_inits_by_view = {}
