@@ -79,6 +79,30 @@ def k_means_center_init(sample_target_iter: dict, n_centers: int):
         
     return center_inits_by_view  
 
+def min_max_random_init(sample_target_iter: dict, n_centers: int):
+    samples_by_view, _ = dict_sample_target_iter_concat(sample_target_iter)
+    
+    points_by_view = {}
+    for k, v in samples_by_view.items():
+        points_by_view[k] = torch.cat(v, dim=0).numpy()
+        
+    center_inits_by_view = {}
+    for k, points in points_by_view.items():
+        x = points[:, 0]
+        x_max = x.max()
+        x_min = x.min()
+        x_init = torch.zeros(n_centers).uniform_(float(x_min), float(x_max))
+        
+        y = points[:, 1]
+        y_max = y.max()
+        y_min = y.min()
+        y_init = torch.zeros(n_centers).uniform_(float(y_min), float(y_max))
+        
+        c = torch.stack([x_init, y_init], dim=1)
+        center_inits_by_view[k] = c
+        
+    return center_inits_by_view    
+
 
 def adapt_lr(optimizer, changer):
     for para_group in optimizer.param_groups:
