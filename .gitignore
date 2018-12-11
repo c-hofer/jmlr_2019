@@ -1,3 +1,9 @@
 .idea
 __pycache__
-
+anon_images
+anon_output
+results
+.ipynb_checkpoints
+data
+*.avi
+*.pickle
