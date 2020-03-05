@@ -4,7 +4,6 @@ import sklearn.cluster
 import torch.nn as nn
 from chofer_torchex.utils.functional import collection_cascade
 from chofer_torchex.utils.data.collate import dict_sample_target_iter_concat
-from chofer_torchex.nn.slayer import SLayer
 from sklearn.model_selection import ShuffleSplit, StratifiedShuffleSplit
 from collections import Counter
 
