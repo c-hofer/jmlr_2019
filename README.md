@@ -1,3 +1,16 @@
+
+This repository contains the code to reproduce the experiments of 
+
+```
+@inproceedings{Hofer19b,
+    author    = {C.~Hofer, R.~Kwitt, and M.~Niethammer},
+    title     = {Learning Representations of Persistence Barcodes Homology},
+    booktitle = {JMLR},
+    year      = {2019}}
+```
+
+The `core` folder contains some utility code while the actual training/testing code is in the top-level jupyter notebooks, which are named after the corresponding datasets. 
+
 Installation
 ============
 
