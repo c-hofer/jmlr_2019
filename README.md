@@ -2,7 +2,7 @@
 This repository contains the code to reproduce the experiments of 
 
 ```
-@inproceedings{Hofer19b,
+@article{Hofer19b,
     author    = {C.~Hofer, R.~Kwitt, and M.~Niethammer},
     title     = {Learning Representations of Persistence Barcodes Homology},
     booktitle = {JMLR},
