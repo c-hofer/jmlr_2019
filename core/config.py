@@ -1,7 +1,7 @@
 import sys
 
 class paths: 
-    data_root_dir = '/scratch1/chofer/jmlr2018_data/'
+    data_root_dir = 'core/datasets/'
     results_root_dir = 'results'
 
 
