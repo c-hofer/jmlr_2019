@@ -4,7 +4,7 @@ This repository contains the code to reproduce the experiments of
 ```
 @article{Hofer19b,
     author    = {C.~Hofer, R.~Kwitt, and M.~Niethammer},
-    title     = {Learning Representations of Persistence Barcodes Homology},
+    title     = {Learning Representations of Persistence Barcdoes},
     booktitle = {JMLR},
     year      = {2019}}
 ```
